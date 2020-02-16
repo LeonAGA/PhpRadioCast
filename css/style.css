@@ -1,0 +1,335 @@
+/*--------------------------------Custom Properties------------------------------------*/
+:root{  
+    --first: #f5f5f5;
+    --second:#4e4e4e;
+    --third: #11998e; 
+    --forth: #38ef7d; 
+    --fifth: #ffffff;
+    --sixth: #eb0000;
+    --primaryFont: 'Arial', Helvetica, sans-serif;
+    --secondaryFont:'Poppins', sans-serif;
+}
+/*--------------------------------General------------------------------------*/
+html{
+    box-sizing: border-box;
+}
+
+*,*:before,*:after{
+    box-sizing: inherit;
+}
+
+body{
+    background-color: var(--first);
+    font-family: var(--primaryFont);
+}
+
+/*--------------------------------Menu---------------------------------------*/
+
+h1{
+    padding: 0.5rem;
+    margin-top: 0rem;
+    font-size: 1.5rem;
+    font-family: var(--secondaryFont);
+    text-align: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.titleBar{
+    color: var(--first);
+    background-color: var(--second);
+}
+
+.bgGreen{
+    background: #11998e;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bgWhite{
+    background-color: var(--fifth);
+}
+
+.containerLogIn{
+    max-width: 800px;
+    height: 650px;
+    margin: 0 auto;
+    border-radius: 20px;
+    display: flex;
+}
+
+.containerSignIn{
+    max-width: 800px;
+    height: 1150px;
+    margin: 0 auto;
+    border-radius: 20px;
+    display: flex;
+}
+
+.shadow{
+    -webkit-box-shadow: 1px 9px 7px -2px rgba(0,0,0,0.28);
+    -moz-box-shadow: 1px 9px 7px -2px rgba(0,0,0,0.28);
+     box-shadow: 1px 9px 7px -2px rgba(0,0,0,0.28);   
+}
+
+.signIn{
+    width: 100%;
+    overflow: hidden; 
+    display: inline-block;  
+    text-align: center;
+    border-radius: 20px 20px 20px 20px;
+}
+
+.logIn{ 
+    width: 100%;
+    overflow: hidden; 
+    display: inline-block;  
+    text-align: center;
+    border-radius: 20px 20px 20px 20px;
+}
+
+.whiteText{
+   color: var(--first);
+}
+
+.greenText{
+    background: #11998e;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.greyText{
+    color: var(--second);
+}
+
+.redText{
+    color: var(--sixth);
+}
+
+.comment{
+    text-align: center;
+    font-size: 1rem;
+    margin: 0 auto;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/*---------------------------------Form-------------------------------------*/
+
+form.styleless
+{
+    position: relative;
+    height: 0%;
+    padding: 3rem;  
+}
+
+
+form.inputsLog,
+form.inputsSign{
+    position: relative;
+    height: 75%;
+    padding: 3rem;    
+}
+
+.logIn> h2, .signIn > h2{
+    font-size: 2rem;
+    margin: 1rem auto;
+    font-family: var(--secondaryFont);
+    text-align: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.inputsLog .input label,
+.inputsSign .input label
+{
+    font-family: var(--secondaryFont);
+    display: block;
+    font-size: 1rem;
+    text-align: left;
+    padding-left: 4.5rem;
+} 
+
+.inputsLog .input input[type="text"], 
+.inputsLog .input input[type="password"]{
+    background-color: var(--first);
+    padding: 1.5rem 0; 
+    width: 80%;
+    border:none;
+    height: 2rem;
+    margin-top: .5rem;
+    font-size: 1.2rem;
+}  
+
+.inputsSign .input input[type="text"], 
+.inputsSign .input input[type="password"],
+.inputsSign .input input[type="email"]
+{
+    background-color: var(--first);
+    padding: 1.5rem 0; 
+    width: 80%;
+    border:none;
+    height: 2rem;
+    margin-top: .5rem;
+    font-size: 1.2rem; 
+}   
+
+
+/*---------------------------------Buttons-----------------------------------*/
+.btnSignIn{
+    width: 14rem;
+    height: 4rem;
+    padding: 2rem auto;
+    font-size: 1rem;
+    text-transform: uppercase;
+    background-color: Transparent;
+    border: 2px solid #ffffff;
+    border-radius: 35px 35px 35px 35px;
+    -moz-border-radius: 35px 35px 35px 35px;
+    -webkit-border-radius: 35px 35px 35px 35px;
+    outline: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btnLogIn{
+    width: 14.1rem;
+    height: 4.1rem;
+    padding: 2rem auto;
+    font-size: 1rem;
+    text-transform: uppercase;
+    background: #11998e;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border: 2px solid #ffffff;
+    border-radius: 35px 35px 35px 35px;
+    -moz-border-radius: 35px 35px 35px 35px;
+    -webkit-border-radius: 35px 35px 35px 35px;
+    outline: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.btn{
+    color: var(--first);
+}
+
+.btnContainerLogIn{
+    position: absolute;
+    bottom: 25px;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.btnContainerSignIn{
+    position: absolute;
+    bottom: -90px;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    text-align: center;
+}
+
+.btnChangeToSignIn{
+    border:none;
+    outline: none;
+    cursor:pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btnChangeToLogin{
+    background: none;
+    border:none;
+    outline: none;
+    cursor:pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btn:hover{
+    cursor:pointer;
+}
+
+.btn:active{
+    width: 13.7rem;
+    height: 3.7rem;
+    padding: 1.7rem auto;
+}
+
+
+
+/*--------------------Notifications--------------------------------*/
+
+
+.notification{
+    position: fixed;
+    top: 4rem;
+    right: 3rem;
+    padding: 1rem 3rem;
+    opacity: 1;
+    Transition: opacity .5s ease;
+    font-size: 1rem;
+}
+
+.visible{
+opacity: 1;
+}
+
+.successful{
+    background-color: var(--forth);
+    color: var(--fifth);
+}
+
+.error{
+    background-color: var(--sixth);
+    color: var(--fifth);
+}
+
+  @media (min-width:768px){
+    .inputs{
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .input{
+        flex: 0 0 calc(33.3% - 1rem);
+    }
+
+    .input input[type="submit"]{
+        flex: 0 0 auto;
+    }
+}  
