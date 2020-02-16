@@ -3,10 +3,12 @@
 if(isset($_POST['login-submit'])){
 
     require '../models/login.class.php';
+    require '../models/loginDao.php';
 
     $logIn = new LogIn(clean_input($_POST["user"]), $_POST["password"]); 
+    $Dao = new LogInDao();
 
-    $valid = validation_input($logIn);
+    $valid = validation_input($logIn,$Dao);
 
     if($valid == 'valid'){
         header("Location: ../index.php?logIn=success");
@@ -27,7 +29,7 @@ function clean_input($data) {
 }
 
 //Function to validate the data
-function validation_input($Instance){
+function validation_input($Instance, $Dao){
         
     if(empty($Instance->get_user())){
         header("Location: ../views/login.php?error=emptyuser");
@@ -36,7 +38,7 @@ function validation_input($Instance){
         header("Location: ../views/login.php?error=emptypassword&user=".$Instance->get_user());
         exit();
     } else{          
-        switch($Instance->search_user()){
+        switch($Dao->search_user($Instance->get_user(), $Instance->get_password())){
             case 'sqlError':
                 header("Location: ../views/login.php?error=sqlerror");  
                 exit();   

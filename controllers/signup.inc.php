@@ -3,16 +3,20 @@
 if(isset($_POST['signup-submit'])){
 
     require '../models/signup.class.php';
+    require '../models/signupDao.php';
 
     $signUp = new SignUp(clean_input($_POST["user"]), clean_input($_POST["name"]), clean_input($_POST["lastName"]),
                         clean_input($_POST["lastName2"]), clean_input($_POST["email"]), $_POST["password"],
                         $_POST["passwordConfirmation"]); 
+    $Dao = new SignUpDao();               
 
-    $valid = validation_input($signUp);
+    $valid = validation_input($signUp, $Dao);
     
     if($valid  == 'valid'){
         
-         switch($signUp->user_registration()){
+         switch($Dao->user_registration($signUp->get_name(), $signUp->get_lastName(),
+                $signUp->get_lastName2(), $signUp->get_email(), $signUp->get_user(),
+                $signUp->get_password())){
             case 'sqlError':
                 header("Location: ../views/signup.php?error=sqlerror");
                 exit();
@@ -38,7 +42,7 @@ function clean_input($data) {
 }
 
 //Function to validate the data
-function validation_input($Instance){
+function validation_input($Instance, $Dao){
     if(empty($Instance->get_user()) || empty($Instance->get_name()) || empty($Instance->get_lastName()) || 
        empty($Instance->get_lastName2()) || empty($Instance->get_email()) || empty($Instance->get_password()) || 
        empty($Instance->get_passwordConfirmation())) {
@@ -78,7 +82,7 @@ function validation_input($Instance){
         exit();
     } else{
 
-       switch($Instance->search_user()){
+       switch($Dao->search_user($Instance->get_user(),$Instance->get_email())){
         case 'sqlError':
         header("Location: ../views/signup.php?error=sqlerror"); 
         exit();     

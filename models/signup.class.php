@@ -2,8 +2,6 @@
 
 if(isset($_POST['signup-submit'])){
 
-include_once '../db/db.php';
-
  class SignUp {
     
     //Properties
@@ -14,7 +12,6 @@ include_once '../db/db.php';
     private $email;
     private $password;
     private $passwordConfirmation;
-    private $db;
 
     public function __construct($user, $name, $lastName, $lastName2,
      $email, $password, $passwordConfirmation){
@@ -25,7 +22,6 @@ include_once '../db/db.php';
         $this->set_email($email);
         $this->set_password($password);
         $this->set_passwordConfirmation($passwordConfirmation);
-        $this->db = new DB();
     }
 
      //Methods
@@ -71,88 +67,7 @@ include_once '../db/db.php';
     function get_passwordConfirmation() {
         return $this->passwordConfirmation;
     }
-     // Function to search register users
-    function search_user(){
-        
-        $conn= mysqli_connect($this->db->dbServername, $this->db->dbUsername, $this->db->dbPassword, $this->db->dbName); 
-        
-        if(!$conn){
-            die("Connection failed".mysqli_connect_error());
-        }
     
-        $sql = "SELECT user_account FROM users WHERE user_account = ?;";
-        $stmt = mysqli_stmt_init($conn);
-        if(!mysqli_stmt_prepare($stmt, $sql)){
-           return 'sqlError';
-        }else {
-            mysqli_stmt_bind_param($stmt, "s", $this->user);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_store_result($stmt);
-            $resultCheck = mysqli_stmt_num_rows($stmt);
-           
-            
-            if($resultCheck > 0){
-               mysqli_stmt_close($stmt);
-               mysqli_close($conn);
-               return 'user'; 
-            }else{
-            
-                $sql = "SELECT user_email FROM users WHERE user_email = ?";
-                if(!mysqli_stmt_prepare($stmt, $sql)){
-                return 'sqlError';
-                }else{
-                mysqli_stmt_bind_param($stmt, "s", $this->email);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_store_result($stmt);
-                $resultCheck = mysqli_stmt_num_rows($stmt);   
-                if($resultCheck > 0){
-                    mysqli_stmt_close($stmt);
-                    mysqli_close($conn);
-                    return 'email'; 
-                    }else{
-                    return 'valid';
-                    }
-
-                }
-                      
-            }
-        }     
-    }
-
-       //Function to register a new user
-    function user_registration(){ 
-
-        $name = $this->name;
-        $lastname = $this->lastName;
-        $lastname2 = $this->lastName2;
-        $email = strtolower($this->email);
-        $account = strtolower($this->user);
-        $password = $this->password;
- 
-        $conn= mysqli_connect($this->db->dbServername, $this->db->dbUsername, $this->db->dbPassword, $this->db->dbName); 
-        
-        if(!$conn){
-            die("Connection failed".mysqli_connect_error());
-        }
-    
-        $sql = "INSERT INTO users (user_name, user_lastname, user_lastname2, user_email, user_account, user_password)
-                VALUES (?, ?, ?, ?, ?, ?);";
-        $stmt = mysqli_stmt_init($conn);
-        if(!mysqli_stmt_prepare($stmt,$sql)){
-            return 'sqlError';
-        }else {
-           
-            $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-            
-            mysqli_stmt_bind_param($stmt, "ssssss", $name, $lastname,
-                                    $lastname2, $email, $account, $hashedPwd);
-             mysqli_stmt_execute($stmt);     
-             mysqli_stmt_close($stmt);
-             mysqli_close($conn);  
-            return 'valid';
-        }
-    }
-
 } 
 
 }else{
