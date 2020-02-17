@@ -28,6 +28,8 @@ class LogInDao {
         $sql = "SELECT * FROM users WHERE user_account = ? OR user_email = ?;";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
+           mysqli_stmt_close($stmt);
+           mysqli_close($conn);
            return 'sqlError';
         }else {
             mysqli_stmt_bind_param($stmt, "ss", $account, $email);

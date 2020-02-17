@@ -1,42 +1,44 @@
 <?php
     require "includes/layout/header.php";
-    // include 'controllers/index.inc.php';
+    require "controllers/index.inc.php";
 ?>
 
 <main>
 <?php
 
-    if(isset($_SESSION['user_id'])){
-        
-    }else{
+    if(!isset($_SESSION['user_id'])){
         header("Location: views/login.php");
         exit();
     }
     ?>  
 
-    <div class="bgGreen whiteText broadcastings shadow broadcasts" >
+    <div class="bgGreen whiteText container shadow broadcasts" >
     <div class="broadcastsContainer">
         <h2>Transmisiones</h2>
 
         <input type="text" id ="search" class="seeker shadow" placeholder="Buscar">
 
-        <p class="totalContacts"><span></span> Transmisiones</p>
+        <p class="totalContacts"><span></span>Próximas Transmisiones</p>
 
         <div class="tableContainer">
-            <table id="contactList" class="contactList">
+        <?php $contacts = search_Allbroadcast();                       
+                        if(!is_array($contacts)){ ?>
+                            
+                 <p class="noBroadcastMessage">No hay próximas transmisiones : / ... </p>
+
+                         <?php }else{ ?>
+            <table id="broadcastList" class="broadcastList">
                 <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Tema</th>
                         <th>Fecha</th>
                         <th>Enlace</th>
-                        <th>Actions</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $contacts = obtainContacts();
-                        if($contacts->num_rows){ 
-                            foreach($contacts as $contact){ ?>
+                    <?php foreach($contacts as $contact){ ?>
                             <tr> 
                                 <td><?php echo $contact['name']; ?></td>
                                 <td><?php echo $contact['company'];?></td>
@@ -46,6 +48,7 @@
                             <?php }}?>
                 </tbody>
             </table>
+
         </div>
     </div>
     </div>

@@ -28,9 +28,25 @@ body{
 h1{
     padding: 0.5rem;
     margin-top: 0rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family: var(--secondaryFont);
-    text-align: center;
+    text-align: left;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: inline-block;
+}
+
+li{
+    padding: 0.5rem;
+    margin-top: 0rem;
+    font-size: 1rem;
+    list-style: none;
+    font-family: var(--secondaryFont);
+    display: inline-block;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -39,9 +55,12 @@ h1{
     user-select: none;
 }
 
+
 .titleBar{
     color: var(--first);
     background-color: var(--second);
+    display: inline-block;
+    width: 100%;
 }
 
 .bgGreen{
@@ -54,7 +73,7 @@ h1{
     background-color: var(--fifth);
 }
 
-.containerLogIn{
+.broadcastings{
     max-width: 800px;
     height: 650px;
     margin: 0 auto;
@@ -68,6 +87,16 @@ h1{
     margin: 0 auto;
     border-radius: 20px;
     display: flex;
+}
+
+.broadcasts{
+    padding: 1rem;
+    margin-top: 3rem;
+}
+
+.broadcastsContainer{
+    max-width: 800px;
+    margin:4rem auto 0 auto;
 }
 
 .shadow{
@@ -126,21 +155,11 @@ h1{
 }
 
 /*---------------------------------Form-------------------------------------*/
-
-form.styleless
-{
-    position: relative;
-    height: 0%;
-    padding: 3rem;  
-}
-
-
-form.inputsLog,
-form.inputsSign{
+/* form{
     position: relative;
     height: 75%;
     padding: 3rem;    
-}
+} */
 
 .logIn> h2, .signIn > h2{
     font-size: 2rem;
@@ -319,7 +338,7 @@ opacity: 1;
     color: var(--fifth);
 }
 
-  @media (min-width:768px){
+ /* @media (min-width:768px){
     .inputs{
         display: flex;
         justify-content: space-around;
@@ -332,4 +351,4 @@ opacity: 1;
     .input input[type="submit"]{
         flex: 0 0 auto;
     }
-}  
+}  */

@@ -15,18 +15,16 @@
 </head>
 <body>
 <header>
-   <div class ="titleBar">
-        <nav>
-            <a href ="#">
-                <img style ="max-width: 8rem; padding: 1rem; "src= "img/logo.png" alt="logo">
-            </a>    
+   <div class ="titleContainer">
+        <nav class ="titleBar">
+            <img style ="max-width: 8rem; padding: 1rem; "src= "img/logo.png" alt="logo">
             <h1>RadioCast</h1>
             <ul>
-                <li class="menuItem"><a href="#">Proximas transmisiones</a></li>
+                <li class="menuItem"><a href="#">Principal</a></li>
                 <li class="menuItem"><a href="#">Crea tu propia transmision!</a></li>
             </ul>
-            <form action ="includes/functions/logout.inc.php" method="post">
-                <button type="submit" name="logout-submit">Logout</button>
+            <form class = "logout" action ="includes/functions/logout.inc.php" method="post">
+                <button type="submit" name="logout-submit">Cerrar Sessión</button>
             </form>
         </nav>
     </div>   

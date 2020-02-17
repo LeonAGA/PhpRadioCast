@@ -25,6 +25,8 @@ include_once '../db/db.php';
         $sql = "SELECT user_account FROM users WHERE user_account = ?;";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
+           mysqli_stmt_close($stmt);
+           mysqli_close($conn);
            return 'sqlError';
         }else {
             mysqli_stmt_bind_param($stmt, "s", $user);
