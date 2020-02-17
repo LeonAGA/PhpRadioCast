@@ -126,6 +126,10 @@ h2{
     color: var(--sixth);
 }
 
+.btn-link{
+    color: var(--fifth)
+}
+
 .back{
     background-color: var(--second);
     border-radius: 5px;

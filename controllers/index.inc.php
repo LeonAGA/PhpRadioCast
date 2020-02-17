@@ -6,14 +6,20 @@
 //obtain all the transmitions
 function search_Allbroadcast(){
     
-        $Dao = new BroadCastManager();
+        $Dao = new BroadcastDao();
         $ResultSet = $Dao->search_Allbroadcast();
         if(is_array($ResultSet)){
-            return ' hay monitos';
-            // foreach ($ResultSet as $value) {
-             
-            // }
+            $broadcasts = array();
+
+            foreach ($ResultSet as $value) {
+                
+                $broadcast = new BroadCast( $value[0], $value[1],$value[2],
+                                            $value[3], $value[4], $value[5]);
+                 array_push($broadcasts, $broadcast);   
+            }
+                return $broadcasts;
         }else{
+            
             return 'no hay monitos';
         }
         
