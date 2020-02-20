@@ -44,6 +44,40 @@ class BroadcastDao{
         }     
     }
 
+    function insert_broadcast(){
+
+        $conn= mysqli_connect($this->db->dbServername, $this->db->dbUsername, $this->db->dbPassword, $this->db->dbName);
+
+        if(!$conn){
+            die("Connection failed".mysqli_connect_error());
+        }
+        
+        try{
+            $statement = $conn->prepare("INSERT INTO contacts (name, company, phone) VALUES (?, ?, ?)");
+            $statement->bind_param("sss", $name, $company, $phone); //s for each string inserted
+            $statement->execute();
+            if($statement->affected_rows == 1){
+            $response = array(
+                'response' => 'correct',
+                'data'=> array(
+                    'name' => $name,
+                    'company'=> $company,
+                    'phone'=> $phone,
+                    'inserted_id' => $statement->insert_id
+                )
+             ); 
+            }
+            $statement->close();
+            $conn->close();
+        }catch(Exception $e){
+            $response = array(
+                'error' => $e->getMessage()
+            );
+        }
+         echo json_encode($response);
+         exit;
+    }
+
 }
 
 

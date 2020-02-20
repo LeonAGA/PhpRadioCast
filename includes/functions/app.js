@@ -6,8 +6,10 @@ const  createForm  = document.querySelector("#createForm"),
 
 (function eventListeners(){
     //Listener to submit or update.
-    createForm.addEventListener('submit', readForm);
-
+    if(createForm !== null){
+        createForm.addEventListener('submit', readForm);
+    }
+    
     //Listener to delete, search for broadcasts and call the broadcastNumber function.
     // if(broadcastList!== null){
     //     broadcastList.addEventListener('click', deleteBroadcast);
@@ -26,9 +28,10 @@ function readForm(e){
     const theme = document.querySelector('#theme').value,
           date = document.querySelector('#date').value,
           time = document.querySelector('#time').value,
-          link = document.querySelector('link').value,
-          action =document.querySelector('#action').value;
-          
+          link = document.querySelector('#link').value,
+          user = document.querySelector('#user').value
+          action = document.querySelector('#action').value;
+         
     if(theme === '' || date === '' || time === '' || link == ''){
         showNotification('Favor de llenar todos los campos', 'error');
     }else{
@@ -39,12 +42,12 @@ function readForm(e){
         parameter.append('date', date);
         parameter.append('time', time);
         parameter.append('link', link);
+        parameter.append('user', user);
         parameter.append('action', action);
         
         if(action === "create"){
             //Create new element.
-            console.log(parameter);
-            // insertDB(parameter);
+            insertDB(parameter);
         }else{
             //Edit broadcast.
             //Read id.
@@ -63,12 +66,14 @@ function insertDB(parameter){
     //Create the object.
     const xhr = new XMLHttpRequest();
     //Open the conection.
-    xhr.open('POST','controllers/create.inc.php',true);
+    xhr.open('POST','controllers/create.inc.php', true);
     //Pass the data.
+    
     xhr.onload = function(){
         if(this.status === 200){
             //Reading response.
-            const response = JSON.parse(xhr.responseText);
+            console.log(xhr.responseText);
+            // const response = JSON.parse(xhr.responseText);
             
             // //Inserting new element to the HTML after the DB insertion 
             // const newContact = document.createElement('tr');
@@ -255,7 +260,6 @@ function contactsNumber(){
 function navigation(e){
     if(e.target.id == 'indexBtn'){
         window.location.href = 'index.php';
-        console.log("asda");
     }else if(e.target.id == 'createBtn'){
         window.location.href = 'create.php';    
     }

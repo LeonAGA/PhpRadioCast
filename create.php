@@ -6,18 +6,18 @@
     exit();
     }
 
-    
-    // require "controllers/create.inc.php";
+    //   require "controllers/create.inc.php";
 
-    
 ?>
+
 
 <div class="bgWhite container shadow">
     <form id ="createForm" action ="">
         <legend class="greenText">Add a new contact <span>*Todos los camposson necesarios*</span></legend>
         
         <?php include 'includes/layout/formCreate.php'; ?>
-        
+
+        <input type="hidden"  id="user" value="<?php echo $_SESSION['user_id'];?>">
     </form>
 </div>
 
