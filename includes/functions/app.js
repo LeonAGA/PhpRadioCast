@@ -1,119 +1,129 @@
-const  addContactForm  = document.querySelector("#contact"),
-       contactsList = document.querySelector('#contactList tbody'),
-       inputSeeker = document.querySelector('#search');
+const  createForm  = document.querySelector("#createForm"),
+       broadcastList = document.querySelector('#broadcastList tbody'),
+       inputSeeker = document.querySelector('#search'),
+       indexBtn = document.querySelector('#indexBtn'),
+       createBtn = document.querySelector('#createBtn');
 
 (function eventListeners(){
     //Listener to submit or update.
-    addContactForm.addEventListener('submit', readForm);
+    createForm.addEventListener('submit', readForm);
 
-    //Listener to delete, search for contacts and call the contactNumber function.
-    if(contactsList!== null){
-        contactsList.addEventListener('click', deleteContact);
-        inputSeeker.addEventListener('input', lookForContacts);
-        contactsNumber();
-    }
+    //Listener to delete, search for broadcasts and call the broadcastNumber function.
+    // if(broadcastList!== null){
+    //     broadcastList.addEventListener('click', deleteBroadcast);
+    //     inputSeeker.addEventListener('input', lookForBroadcast);
+    //     broadNumber();
+    // }
+
+    //Listeenr to click.
+    document.addEventListener('click', navigation );
 
 })();
 
 function readForm(e){
     e.preventDefault();
 
-    const name = document.querySelector('#name').value,
-          company = document.querySelector('#company').value,
-          phone = document.querySelector('#phone').value,
+    const theme = document.querySelector('#theme').value,
+          date = document.querySelector('#date').value,
+          time = document.querySelector('#time').value,
+          link = document.querySelector('link').value,
           action =document.querySelector('#action').value;
           
-    if(name === '' || company === '' || phone === ''){
-        showNotification('Please fill all the fields correctly', 'error');
+    if(theme === '' || date === '' || time === '' || link == ''){
+        showNotification('Favor de llenar todos los campos', 'error');
     }else{
        
-        //Create FormDato for AJAX after the successful validation.
-        const contactInfo = new FormData();
-        contactInfo.append('name', name);
-        contactInfo.append('company', company);
-        contactInfo.append('phone', phone);
-        contactInfo.append('action', action);
+        //Create FormData for AJAX after the successful validation.
+        const parameter = new FormData();
+        parameter.append('theme', theme);
+        parameter.append('date', date);
+        parameter.append('time', time);
+        parameter.append('link', link);
+        parameter.append('action', action);
         
         if(action === "create"){
             //Create new element.
-            insertDB(contactInfo);
+            console.log(parameter);
+            // insertDB(parameter);
         }else{
-            //Edit contact.
+            //Edit broadcast.
             //Read id.
             const registryId = document.querySelector('#id').value;
-            contactInfo.append('id', registryId);
+            parameter.append('id', registryId);
             //Update an element.
-            updateDB(contactInfo);
+            updateDB(parameter);
         }
 
     }
 
 }
 
-function insertDB(contactInfo){
+function insertDB(parameter){
     // call Ajax:
     //Create the object.
     const xhr = new XMLHttpRequest();
     //Open the conection.
-    xhr.open('POST','includes/mode/model-contacts.php',true);
+    xhr.open('POST','controllers/create.inc.php',true);
     //Pass the data.
     xhr.onload = function(){
         if(this.status === 200){
             //Reading response.
             const response = JSON.parse(xhr.responseText);
             
-            //Inserting new element to the HTML after the DB insertion 
-            const newContact = document.createElement('tr');
-            newContact.innerHTML = `
-                <td>${response.data.name}</td>
-                <td>${response.data.company}</td>
-                <td>${response.data.phone}</td>
-            `;
-            const actionsContainer = document.createElement('td');
+            // //Inserting new element to the HTML after the DB insertion 
+            // const newContact = document.createElement('tr');
+            // newContact.innerHTML = `
+            //     <td>${response.data.theme}</td>
+            //     <td>${response.data.company}</td>
+            //     <td>${response.data.phone}</td>
+            // `;
+            // const actionsContainer = document.createElement('td');
 
-            //Creade edit botton.
-            const editIcon = document.createElement('i');
-            editIcon.classList.add('fas','fa-edit');
-            const editBotton = document.createElement('a');
-            editBotton.classList.add('btn-edit','btn');
-            editBotton.appendChild(editIcon);
-            editBotton.href = `editar.php?=${response.data.inserted_id}`;
+            // //Creade edit botton.
+            // const editIcon = document.createElement('i');
+            // editIcon.classList.add('fas','fa-edit');
+            // const editBotton = document.createElement('a');
+            // editBotton.classList.add('btn-edit','btn');
+            // editBotton.appendChild(editIcon);
+            // editBotton.href = `editar.php?=${response.data.inserted_id}`;
             
 
-            //Insert in the new td action Container the edit botton.
-            actionsContainer.appendChild(editBotton);
+            // //Insert in the new td action Container the edit botton.
+            // actionsContainer.appendChild(editBotton);
 
-            //Creating Delete botton.
-            const deleteIcon = document.createElement('i');
-            deleteIcon.classList.add('fas','fa-trash-alt');
-            const deleteBotton = document.createElement('button');
-            deleteBotton.classList.add('btn-delete','btn');
-            deleteBotton.appendChild(deleteIcon);
-            deleteBotton.setAttribute('data-id',response.data.inserted_id);
-            deleteBotton.setAttribute('type','button');
+            // //Creating Delete botton.
+            // const deleteIcon = document.createElement('i');
+            // deleteIcon.classList.add('fas','fa-trash-alt');
+            // const deleteBotton = document.createElement('button');
+            // deleteBotton.classList.add('btn-delete','btn');
+            // deleteBotton.appendChild(deleteIcon);
+            // deleteBotton.setAttribute('data-id',response.data.inserted_id);
+            // deleteBotton.setAttribute('type','button');
             
 
-            //Insert in the new td action Container the delete botton.
-            actionsContainer.appendChild(deleteBotton);
+            // //Insert in the new td action Container the delete botton.
+            // actionsContainer.appendChild(deleteBotton);
 
-            //Insert in the new tr newContact the new td actionsContainer.
-            newContact.appendChild(actionsContainer);
+            // //Insert in the new tr newContact the new td actionsContainer.
+            // newContact.appendChild(actionsContainer);
 
-            //Inserting in the form.
-            contactsList.appendChild(newContact);
+            // //Inserting in the form.
+            // contactsList.appendChild(newContact);
 
-            //Reset form.
-            document.querySelector('form').reset();
+            // //Reset form.
+            // document.querySelector('form').reset();
 
             //Show Notification.
-            showNotification('Contact added', 'successful');
+            showNotification('Se a creado tu evento de transmisión!', 'successful');
 
-            //Update the contact counter.
-            contactsNumber();
+            // //Update the contact counter.
+            // contactsNumber();
+        }else{
+            showNotification('No se pudo crear tu evento, notificar al dministrador', 'error');
         }
     }
     //Send the data.
-    xhr.send(contactInfo);
+    xhr.send(parameter);
 }
 
 function deleteContact(e){
@@ -192,7 +202,7 @@ function showNotification(message, state){
     notification.textContent = message;
 
     //form
-    addContactForm.insertBefore(notification,document.querySelector('form legend'));
+    createForm.insertBefore(notification,document.querySelector('form legend'));
 
     setTimeout(() => {
         notification.classList.add('visible');
@@ -240,4 +250,13 @@ function contactsNumber(){
 
     numberContainer.textContent = total;
     
+}
+
+function navigation(e){
+    if(e.target.id == 'indexBtn'){
+        window.location.href = 'index.php';
+        console.log("asda");
+    }else if(e.target.id == 'createBtn'){
+        window.location.href = 'create.php';    
+    }
 }

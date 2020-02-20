@@ -10,7 +10,7 @@
         header("Location: views/login.php");
         exit();
     }
-    ?>  
+?>  
 
     <div class="bgGreen whiteText container shadow broadcasts" >
     <div class="broadcastsContainer">
@@ -23,7 +23,8 @@
         <div class="tableContainer">
         <?php $broadcasts = search_Allbroadcast();
                              echo $broadcasts[0]->get_theme();          
-                        if(!is_array($broadcasts)){ ?>
+                        if(!is_array($broadcasts)){ 
+                            ?>
                             
                  <p class="noBroadcastMessage">No hay próximas transmisiones : / ... </p>
 

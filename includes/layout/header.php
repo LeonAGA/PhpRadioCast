@@ -20,8 +20,8 @@
             <img style ="max-width: 8rem; padding: 1rem; "src= "img/logo.png" alt="logo">
             <h1>RadioCast</h1>
             <ul>
-                <li class="menuItem"><a href="#">Principal</a></li>
-                <li class="menuItem"><a href="#">Crea tu propia transmision!</a></li>
+                <li id="indexBtn" class="menuItem"><a href="index.php">Principal</a></li>
+                <li id="createBtn" class="menuItem"><a href="create.php">Crea tu propia transmision!</a></li>
             </ul>
             <form class = "logout" action ="includes/functions/logout.inc.php" method="post">
                 <button type="submit" name="logout-submit">Cerrar Sessión</button>
