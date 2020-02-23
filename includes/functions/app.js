@@ -3,6 +3,7 @@ const  createForm  = document.querySelector("#createForm"),
        inputSeeker = document.querySelector('#search'),
        indexBtn = document.querySelector('#indexBtn'),
        createBtn = document.querySelector('#createBtn');
+       mainContainer = document.querySelector('#mainContainer');
 
 (function eventListeners(){
     //Listener to submit or update.
@@ -13,7 +14,7 @@ const  createForm  = document.querySelector("#createForm"),
     //Listener to delete, search for broadcasts and call the broadcastNumber function.
      if(broadcastList!== null){
         broadcastList.addEventListener('click', deleteBroadcast);
-        // inputSeeker.addEventListener('input', lookForBroadcast);
+        inputSeeker.addEventListener('input', lookForBroadcast);
          broadNumber();
      }
 
@@ -97,7 +98,7 @@ function deleteBroadcast(e){
     if(e.target.parentElement.classList.contains('btn-delete')){
 
         const broadcast_id = e.target.parentElement.getAttribute('broadcast-id');
-
+        // const user_id = e.target.parentElement.getAttribute('account-id');
         const response = confirm('Seguro que quieres eliminar tu transmisión?');
 
         if(response){
@@ -111,16 +112,16 @@ function deleteBroadcast(e){
                 if(this.status === 200){
                  let data;
                  let response = xhr.responseText.replace(/<\/?[^>]+(>|$)/g, "");
-                //  data = JSON.parse(response);
-                 console.log(response);
-                   if(data.correct=== 'correct'){
+                 data = JSON.parse(response);
+                 console.log(data);
+                   if(data.correct){
 
                        //Delete the registry of DOM
                        e.target.parentElement.parentElement.parentElement.remove();
                        showNotification('La transmisión a sido eliminada!','successful');
 
                        //Update the contact counter.
-                       contactsNumber();
+                       broadNumber();
 
                    }else{
                        showNotification('There was an error', 'error')
@@ -152,7 +153,6 @@ function updateDB(contactInfo){
                 showNotification('The contact\'s information couldn\'t been updated ', 'error');
              }
              //After trhee seconds send the user to the index
-
             setTimeout(() => {
                 window.location.href = 'index.php';
             }, 4000);
@@ -170,12 +170,16 @@ function showNotification(message, state, event=''){
     notification.classList.add('notification', state, 'shadow');
     notification.textContent = message;
     const eventElement = document.createElement('span');
-    eventElement.innerHTML = `<br> ${event}!`;
+    eventElement.innerHTML = `<br> ${event}`;
     notification.appendChild(eventElement);
     
     //form
-    createForm.insertBefore(notification,document.querySelector('form legend'));
-
+    if(createForm !== null){
+        createForm.insertBefore(notification,document.querySelector('form legend'));
+    }else{
+        mainContainer.insertBefore(notification,document.querySelector('.broadcastsContainer'));
+    }
+    
     setTimeout(() => {
         notification.classList.add('visible');
         setTimeout(() => {
@@ -188,7 +192,7 @@ function showNotification(message, state, event=''){
 }
 
 
-function lookForContacts(e){
+function lookForBroadcast(e){
     e.preventDefault();
 
     const expression  = new RegExp(e.target.value, "i"),
@@ -199,7 +203,7 @@ function lookForContacts(e){
             registry.style.display = 'none';
 
             if(registry.childNodes[1].textContent.replace(/\s/g,' ').search(expression)!= -1){
-
+             
               registry.style.display = 'table-row';
            }
 

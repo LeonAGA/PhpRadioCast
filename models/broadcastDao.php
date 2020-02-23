@@ -85,7 +85,7 @@ class BroadcastDao{
         }
 
         try{
-            $statement = $conn->prepare("DELETE FROM broadcast WHERE broadcast_id = ? AND user_id = ?;");
+            $statement = $conn->prepare("DELETE FROM broadcasts WHERE broadcast_id = ? AND user_id = ?;");
             $statement->bind_param("ii", $broadcast_id, $user_id);   
             $statement->execute();
            if($statement->affected_rows == 1){

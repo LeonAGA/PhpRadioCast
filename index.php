@@ -4,19 +4,12 @@
 ?>
 
 <main>
-<?php
 
-    if(!isset($_SESSION['user_id'])){
-        header("Location: views/login.php");
-        exit();
-    }
-?>  
-
-    <div class="bgGreen whiteText container shadow broadcasts" >
+    <div id = "mainContainer"class="bgGreen whiteText container shadow broadcasts" >
     <div class="broadcastsContainer">
         <h2>Transmisiones</h2>
 
-        <input type="text" id ="search" class="seeker shadow" placeholder="Buscar">
+        <input type="text" id ="search" class="seeker shadow" placeholder="Buscar por usuario">
 
         <p class="totalBroadcast">Próximas Transmisiones: <span></span></p>
 
