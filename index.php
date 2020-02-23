@@ -18,11 +18,11 @@
 
         <input type="text" id ="search" class="seeker shadow" placeholder="Buscar">
 
-        <p class="totalContacts"><span></span>Próximas Transmisiones</p>
+        <p class="totalBroadcast">Próximas Transmisiones: <span></span></p>
 
         <div class="tableContainer">
         <?php $broadcasts = search_Allbroadcast();
-                             echo $broadcasts[0]->get_theme();          
+                                   
                         if(!is_array($broadcasts)){ 
                             ?>
                             
@@ -39,7 +39,7 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bgBlack">
                     <?php foreach($broadcasts as $broadcast){ ?>
                             <tr> 
                                 <td><?php echo $broadcast->get_user_account();?></td>
@@ -48,7 +48,7 @@
                                 <td><a class="btn-link btn" href="<?php echo $broadcast->get_link();?>"><i class="fas fa-link"></i></a></td>
                                 <?php
                                  if($_SESSION['user_id'] == $broadcast->get_user_id()){?>
-                                    <td><a class="btn-edit btn" href="edit.php?id=<?php echo $broadcast->get_broadcast_id();?>"><i class="fas fa-edit"></i></a><button class="btn-delete btn"data-id="<?php echo $broadcast->get_broadcast_id();?>"type ="button"><i class="fas fa-trash-alt"></i></button></td>
+                                    <td><a class="btn-edit btn" href="edit.php?id=<?php echo $broadcast->get_broadcast_id();?>"><i class="fas fa-edit"></i></a><button class="btn-delete btn"broadcast-id="<?php echo $broadcast->get_broadcast_id();?>"type ="button"><i class="fas fa-trash-alt"></i></button></td>
                                  <?php } ?>
                             </tr>
                             <?php }}?>

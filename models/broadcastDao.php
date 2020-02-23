@@ -44,38 +44,65 @@ class BroadcastDao{
         }     
     }
 
-    function insert_broadcast(){
+    function insert_broadcast($theme, $date, $link, $userid){
 
-        $conn= mysqli_connect($this->db->dbServername, $this->db->dbUsername, $this->db->dbPassword, $this->db->dbName);
+        $conn = new mysqli($this->db->dbServername, $this->db->dbUsername, $this->db->dbPassword, $this->db->dbName);
 
         if(!$conn){
-            die("Connection failed".mysqli_connect_error());
+            die( array('error' => "Connection failed".mysqli_connect_error()));
         }
-        
+          
         try{
-            $statement = $conn->prepare("INSERT INTO contacts (name, company, phone) VALUES (?, ?, ?)");
-            $statement->bind_param("sss", $name, $company, $phone); //s for each string inserted
+            $statement = $conn->prepare("INSERT INTO broadcasts (date, link, theme, user_id) VALUES (?, ?, ?, ?)");
+            $statement->bind_param("sssi", $date, $link, $theme , $userid); 
             $statement->execute();
             if($statement->affected_rows == 1){
             $response = array(
-                'response' => 'correct',
+                'correct' => 'success',
                 'data'=> array(
-                    'name' => $name,
-                    'company'=> $company,
-                    'phone'=> $phone,
-                    'inserted_id' => $statement->insert_id
+                    'theme' => $theme,
+                    'date'=> $date,
                 )
              ); 
             }
             $statement->close();
             $conn->close();
-        }catch(Exception $e){
+            
+        }catch(Exception $ex){
             $response = array(
-                'error' => $e->getMessage()
+                'error' => $ex->getMessage()
             );
         }
-         echo json_encode($response);
-         exit;
+        return $response;
+    }
+
+    function delete_broadcast($broadcast_id, $user_id){
+
+        $conn = new mysqli($this->db->dbServername, $this->db->dbUsername, $this->db->dbPassword, $this->db->dbName);
+
+        if(!$conn){
+            die( array('error' => "Connection failed".mysqli_connect_error()));
+        }
+
+        try{
+            $statement = $conn->prepare("DELETE FROM broadcast WHERE broadcast_id = ? AND user_id = ?;");
+            $statement->bind_param("ii", $broadcast_id, $user_id);   
+            $statement->execute();
+           if($statement->affected_rows == 1){
+            $response = array(
+                'correct' => 'success',
+            );
+           }
+            $statement->close();
+            $conn->close();
+
+        }catch(Exception $ex){
+            $response = array(
+             'error'=> $ex->getMessage()
+            );
+        }
+        return $response;
+
     }
 
 }

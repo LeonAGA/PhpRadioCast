@@ -1,6 +1,6 @@
 /*--------------------------------Custom Properties------------------------------------*/
 :root{  
-    --first: #f5f5f5;
+    --first: #ececec;
     --second:#4e4e4e;
     --third: #11998e; 
     --forth: #38ef7d; 
@@ -41,7 +41,12 @@ h1{
 
 .titleBar{
     color: var(--first);
-    background-color: var(--second);
+}
+
+.bgBlack{
+    background: #1f1f1f;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #363636, #1f1f1f);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #363636, #1f1f1f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .bgGreen{

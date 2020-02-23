@@ -11,11 +11,11 @@ const  createForm  = document.querySelector("#createForm"),
     }
     
     //Listener to delete, search for broadcasts and call the broadcastNumber function.
-    // if(broadcastList!== null){
-    //     broadcastList.addEventListener('click', deleteBroadcast);
-    //     inputSeeker.addEventListener('input', lookForBroadcast);
-    //     broadNumber();
-    // }
+     if(broadcastList!== null){
+        broadcastList.addEventListener('click', deleteBroadcast);
+        // inputSeeker.addEventListener('input', lookForBroadcast);
+         broadNumber();
+     }
 
     //Listeenr to click.
     document.addEventListener('click', navigation );
@@ -72,88 +72,52 @@ function insertDB(parameter){
     xhr.onload = function(){
         if(this.status === 200){
             //Reading response.
-            console.log(xhr.responseText);
-            // const response = JSON.parse(xhr.responseText);
+            let data;
+            let response = xhr.responseText.replace(/<\/?[^>]+(>|$)/g, "");
+            data = JSON.parse(response)
+            console.log(response);
+            if( data.correct){
+                showNotification('Se a creado tu evento de transmisión', 'successful', data.data.theme);
+                
+            }else{
+                showNotification('Algo salió mal :/... notificar al asministrador', 'error');
+            }
             
-            // //Inserting new element to the HTML after the DB insertion 
-            // const newContact = document.createElement('tr');
-            // newContact.innerHTML = `
-            //     <td>${response.data.theme}</td>
-            //     <td>${response.data.company}</td>
-            //     <td>${response.data.phone}</td>
-            // `;
-            // const actionsContainer = document.createElement('td');
-
-            // //Creade edit botton.
-            // const editIcon = document.createElement('i');
-            // editIcon.classList.add('fas','fa-edit');
-            // const editBotton = document.createElement('a');
-            // editBotton.classList.add('btn-edit','btn');
-            // editBotton.appendChild(editIcon);
-            // editBotton.href = `editar.php?=${response.data.inserted_id}`;
-            
-
-            // //Insert in the new td action Container the edit botton.
-            // actionsContainer.appendChild(editBotton);
-
-            // //Creating Delete botton.
-            // const deleteIcon = document.createElement('i');
-            // deleteIcon.classList.add('fas','fa-trash-alt');
-            // const deleteBotton = document.createElement('button');
-            // deleteBotton.classList.add('btn-delete','btn');
-            // deleteBotton.appendChild(deleteIcon);
-            // deleteBotton.setAttribute('data-id',response.data.inserted_id);
-            // deleteBotton.setAttribute('type','button');
-            
-
-            // //Insert in the new td action Container the delete botton.
-            // actionsContainer.appendChild(deleteBotton);
-
-            // //Insert in the new tr newContact the new td actionsContainer.
-            // newContact.appendChild(actionsContainer);
-
-            // //Inserting in the form.
-            // contactsList.appendChild(newContact);
-
-            // //Reset form.
-            // document.querySelector('form').reset();
-
-            //Show Notification.
-            showNotification('Se a creado tu evento de transmisión!', 'successful');
-
-            // //Update the contact counter.
-            // contactsNumber();
         }else{
-            showNotification('No se pudo crear tu evento, notificar al dministrador', 'error');
+            showNotification('Hay un error en la comunicación, notificar al asministrador', 'error');
         }
+        createForm.reset();
     }
     //Send the data.
     xhr.send(parameter);
 }
 
-function deleteContact(e){
+function deleteBroadcast(e){
 
     if(e.target.parentElement.classList.contains('btn-delete')){
 
-        const id = e.target.parentElement.getAttribute('data-id');
+        const broadcast_id = e.target.parentElement.getAttribute('broadcast-id');
 
-        const response = confirm('Are you sure?');
+        const response = confirm('Seguro que quieres eliminar tu transmisión?');
 
         if(response){
             //Ajax call:
             //Create the object.
             const xhr = new XMLHttpRequest();
             //Open.
-            xhr.open('GET', `includes/mode/model-contacts.php?id=${id}&action=delete`, true);
+            xhr.open('GET', `controllers/index.inc.php?id=${broadcast_id}&action=delete`, true);
             //Read.
             xhr.onload = function(){
                 if(this.status === 200){
-                  const  result = JSON.parse(xhr.responseText);
-                  
-                   if(result.response === 'correct'){
+                 let data;
+                 let response = xhr.responseText.replace(/<\/?[^>]+(>|$)/g, "");
+                //  data = JSON.parse(response);
+                 console.log(response);
+                   if(data.correct=== 'correct'){
+
                        //Delete the registry of DOM
                        e.target.parentElement.parentElement.parentElement.remove();
-                       showNotification('Contact has been deleted','successful');
+                       showNotification('La transmisión a sido eliminada!','successful');
 
                        //Update the contact counter.
                        contactsNumber();
@@ -201,11 +165,14 @@ function updateDB(contactInfo){
 }
 
     
-function showNotification(message, state){
+function showNotification(message, state, event=''){
     const notification = document.createElement('div');
     notification.classList.add('notification', state, 'shadow');
     notification.textContent = message;
-
+    const eventElement = document.createElement('span');
+    eventElement.innerHTML = `<br> ${event}!`;
+    notification.appendChild(eventElement);
+    
     //form
     createForm.insertBefore(notification,document.querySelector('form legend'));
 
@@ -214,9 +181,9 @@ function showNotification(message, state){
         setTimeout(() => {
             notification.classList.remove('visible');
             setTimeout(() => {
-                notification.remove(); 
+                 notification.remove(); 
             }, 500); 
-        }, 3000);
+        }, 8000);
     }, 100);
 }
 
@@ -236,18 +203,18 @@ function lookForContacts(e){
               registry.style.display = 'table-row';
            }
 
-           contactsNumber();
+           broadNumber();
 
           });
 }
 
-function contactsNumber(){
-    const totalContacts = document.querySelectorAll('tbody tr'),
-          numberContainer = document.querySelector('.totalContacts span');
+function broadNumber(){
+    const totalBroadcasts = document.querySelectorAll('tbody tr'),
+          numberContainer = document.querySelector('.totalBroadcast span');
 
     let total = 0;
 
-    totalContacts.forEach(contact =>{
+    totalBroadcasts.forEach(contact =>{
         if(contact.style.display === '' || contact.style.display === 'table-row'){
             total++;
         }

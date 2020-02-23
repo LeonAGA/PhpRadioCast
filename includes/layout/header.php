@@ -15,7 +15,7 @@
 </head>
 <body>
 <header>
-   <div class ="titleContainer">
+   <div class ="titleContainer bgBlack">
         <nav class ="titleBar">
             <img style ="max-width: 8rem; padding: 1rem; "src= "img/logo.png" alt="logo">
             <h1>RadioCast</h1>

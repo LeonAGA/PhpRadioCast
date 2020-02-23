@@ -5,15 +5,12 @@
     header("Location: views/login.php");
     exit();
     }
-
-    //   require "controllers/create.inc.php";
-
 ?>
 
 
 <div class="bgWhite container shadow">
     <form id ="createForm" action ="">
-        <legend class="greenText">Add a new contact <span>*Todos los camposson necesarios*</span></legend>
+        <legend class="greenText">Crearemos tu evento! <span>*Todos los campos son necesarios*</span></legend>
         
         <?php include 'includes/layout/formCreate.php'; ?>
 

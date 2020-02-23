@@ -3,6 +3,7 @@
  require $_SERVER['DOCUMENT_ROOT']."/RadioCast/models/broadcast.class.php";
  require $_SERVER['DOCUMENT_ROOT']."/RadioCast/models/broadcastDao.php";
 
+
 //obtain all the broadcasts
 function search_Allbroadcast(){
     
@@ -47,7 +48,6 @@ function search_broadcast($id){
 
 }
 
-
 // function search_Allbroadcast($id){
 //     include 'db.php';
 //     try{
@@ -58,3 +58,29 @@ function search_broadcast($id){
 //     }
 
 // }
+
+if(empty($_POST)){
+    
+    if( isset($_GET['action']) && ($_GET['action'] == 'delete')){
+
+        //Prepare statement to avoid SQL inyections.
+        $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
+        $userid = dddd
+
+        //Instances
+        $Dao = new BroadcastDao();
+        
+        try{
+
+            // $response = $Dao->delete_broadcast($id, $userid );
+
+        }catch(Exception $ex){
+            $response = array(
+                'error'=> $ex->getMessage()
+            );
+        }
+
+        echo json_encode($response);  
+        exit();
+    }
+}

@@ -21,7 +21,7 @@
 <body>
 
      
-    <div class="titleBar">
+    <div class="titleBar bgBlack">
         <h1>RadioCast</h1>
     </div>
 
