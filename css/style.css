@@ -324,6 +324,42 @@ opacity: 1;
     color: var(--fifth);
 }
 
+footer{
+
+    text-align:center;
+    margin-top: 5rem;
+    padding:  1.5rem 1.5rem;
+    background-color: #1f1f1f;
+}
+
+.passlogineye{
+ position: absolute;
+ margin-top: 0.5rem;
+ border-style: solid;
+ padding: 0.9rem 0 0.9rem 0; 
+ border-color: var(--first);
+
+}
+
+.passsingupeye{
+    position: absolute;
+    margin-top: 0.5rem;
+    border-style: solid;
+    padding: 0.9rem 0 0.9rem 0; 
+    border-color: var(--first);
+    background-color: var(--first);
+    color: var(--second);
+}
+.passsingupeye2{
+    position: absolute;
+    margin-top: 0.5rem;
+    border-style: solid;
+    padding: 0.9rem 0 0.9rem 0; 
+    border-color: var(--first);
+    background-color: var(--first);
+    color: var(--second);
+}
+
   @media (min-width:768px){
     .inputs{
         display: flex;

@@ -43,11 +43,12 @@
                 <div class="input">
                     <label class = "greenText" for="password">Contraseña</label>
                     <input 
+                    class = "passLoginInput"
                     type="password"  
                     name="password"
                     placeholder="Contraseña"
                     >
-                    
+                    <i class="fas fa-eye passlogineye"></i>   
                 </div><br>
                 <div class="input btnContainerLogIn">
                     <input class ="btn btnLogIn" type="submit" name = "login-submit" value="Iniciar sesión">
@@ -83,6 +84,9 @@
             ?>
         </div>
     </div>
-
+    <footer class = "whiteText">
+    &copy; Leon A.G.A.
+    </footer>
+    <script src="../includes/functions/logger.js"></script>
 </body>
 </html>

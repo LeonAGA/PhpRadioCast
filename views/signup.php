@@ -79,18 +79,22 @@
                 <div class="input">
                     <label class = "whiteText" for="password">Contraseña</label>
                     <input 
+                    class = "passSignUpInput"
                     type="password"  
                     name="password"
                     placeholder="Contraseña"
                     >
+                    <i class="fas fa-eye passsingupeye"></i> 
                 </div><br>
                 <div class="input">
                     <label class = "whiteText" for="passwordConfirmation">Confirmar contraseña</label>
                     <input 
+                    class = "passSignUpInput2"
                     type="password"  
                     name="passwordConfirmation"
                     placeholder="Confirmar contraseña"
                     >            
+                    <i class="fas fa-eye passsingupeye2"></i> 
                 </div><br>
                 <div class="input btnContainerSignIn">
                     <input class ="btn btnSignIn" type="submit" name = "signup-submit" value="Registrar">
@@ -135,5 +139,9 @@
 
         </div>
     </div>
+    <footer class = "whiteText">
+    &copy; Leon A.G.A.
+    </footer>
+    <script src="../includes/functions/logger.js"></script>
 </body>
 </html>

@@ -39,5 +39,5 @@
 </div>
 <div class="input send btnContainerLogIn">
     <input type="hidden" id="action" value="update"> 
-    <input id = "update" class="btn btnPublish" type="submit" value="Actualizar!">
+    <input id = "update" class="btn btnPublish disabled" type="submit" value="Actualizar!" disabled>
 </div>

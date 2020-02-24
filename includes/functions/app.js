@@ -5,6 +5,10 @@ const  createForm  = document.querySelector("#createForm"),
        indexBtn = document.querySelector('#indexBtn'),
        createBtn = document.querySelector('#createBtn'),
        mainContainer = document.querySelector('#mainContainer');
+       let themeFlag = false;
+       let dateFlag = false;
+       let timeFlag = false;
+       let linkFlag = false;
 
 (function eventListeners(){
     //Listener to submit or update.
@@ -13,21 +17,51 @@ const  createForm  = document.querySelector("#createForm"),
     }
 
     if(editForm !== null){
-        
+
         const themeOriginal = document.querySelector('#theme').value,
         dateOriginal = document.querySelector('#date').value,
         timeOriginal = document.querySelector('#time').value,
         linkOriginal = document.querySelector('#link').value,
-        userOriginal = document.querySelector('#user').value,
-        broadcastidOriginal = document.querySelector('#broadcastid').value;
-
+    
         themeInput = document.querySelector('#theme');
         dateInput = document.querySelector('#date');
         timeInput = document.querySelector('#time');
         linkInput = document.querySelector('#link');
-        userInput = document.querySelector('#user');
-        broadcastidInput = document.querySelector('#broadcastid');
+       
 
+        themeInput.addEventListener('input', function(e){
+            if(e.target.value === themeOriginal){
+                themeFlag = false;
+            }else{
+                themeFlag = true;
+            }
+        });
+
+        dateInput.addEventListener('input', function(e){
+            if(e.target.value === dateOriginal){
+                dateFlag = false;
+            }else{
+                dateFlag = true;
+            }
+        });
+
+        timeInput.addEventListener('input', function(e){
+            if(e.target.value === timeOriginal){
+                timeFlag = false;
+            }else{
+                timeFlag = true;
+            }
+        });
+
+        linkInput.addEventListener('input', function(e){
+            if(e.target.value === linkOriginal){
+                linkFlag = false;
+            }else{
+                linkFlag = true;
+            }
+        });
+        //running listener for editing.
+        enableEdit();
         editForm.addEventListener('submit', readForm);
     }
     
@@ -38,10 +72,25 @@ const  createForm  = document.querySelector("#createForm"),
          broadNumber();
      }
 
-    //Listeenr to click.
+    //Listener to click.
     document.addEventListener('click', navigation );
 
+    
 })();
+
+function enableEdit(){
+    if(editForm !== null){
+        if(themeFlag || dateFlag || timeFlag || linkFlag){
+            document.querySelector('#update').classList.remove("disabled");
+            document.querySelector('#update').disabled = false;
+        }else{
+            document.querySelector('#update').classList.add("disabled");
+            document.querySelector('#update').disabled = true;
+        }
+        setTimeout(enableEdit,0);
+
+    }
+}
 
 function readForm(e){
     e.preventDefault();
@@ -169,10 +218,11 @@ function updateDB(parameter){
             //Reading response.
             let data;
             let response = xhr.responseText.replace(/<\/?[^>]+(>|$)/g, "");
-            data = JSON.parse(response)
+            data = JSON.parse(response);
+            console.log(data);
             if( data.correct){
                 showNotification('Se a editado tu evento de transmisión', 'successful', data.data.theme);
-                
+
             }else{
                 showNotification('Algo salió mal :/... notificar al asministrador', 'error');
             }   
@@ -200,8 +250,10 @@ function showNotification(message, state, event=''){
     //form
     if(createForm !== null){
         createForm.insertBefore(notification,document.querySelector('form legend'));
-    }else{
+    }else if (mainContainer !== null){
         mainContainer.insertBefore(notification,document.querySelector('.broadcastsContainer'));
+    }else{
+        editForm.insertBefore(notification,document.querySelector('form legend'));
     }
     
     setTimeout(() => {

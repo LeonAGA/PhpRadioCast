@@ -12,9 +12,6 @@ class BroadcastDao{
 
     function search_broadcast($broadcast_id, $user_id){
 
-        $broadcast = $broadcast_id;
-        $user = $user_id;
-        
         $conn= mysqli_connect($this->db->dbServername, $this->db->dbUsername, $this->db->dbPassword, $this->db->dbName);
 
         if(!$conn){
@@ -34,7 +31,7 @@ class BroadcastDao{
             mysqli_close($conn);
             return 'sqlError';
         }else {          
-        mysqli_stmt_bind_param($stmt,"ii",$user,$broadcast);
+        mysqli_stmt_bind_param($stmt,"ii", $user_id, $broadcast_id);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
 
@@ -142,6 +139,42 @@ class BroadcastDao{
         }catch(Exception $ex){
             $response = array(
              'error'=> $ex->getMessage()
+            );
+        }
+        return $response;
+
+    }
+
+    function update_broadcast($theme, $date, $link, $userid, $broadcastid){
+
+        $conn = new mysqli($this->db->dbServername, $this->db->dbUsername, $this->db->dbPassword, $this->db->dbName);
+
+        if(!$conn){
+            die( array('error' => "Connection failed".mysqli_connect_error()));
+        }
+
+        try{
+            $statement = $conn->prepare("UPDATE broadcasts SET theme = ?, date = ?, link = ? WHERE broadcast_id = ? AND user_id = ?");
+            $statement->bind_param("sssii", $theme, $date, $link, $broadcastid, $userid);
+            $statement->execute();
+            if($statement->affected_rows == 1){
+                $response = array(
+                    'correct' => 'success',
+                    'data'=> array(
+                        'theme' => $theme,
+                        'date'=> $date,
+                    )
+                 ); 
+            }else{
+                $response = array(
+                    'response' => 'error'
+                );
+            }
+            $statement->close();
+            $conn->close();
+        }catch(Exception $ex){
+            $response = array(
+                'error' => $ex->getMessage()
             );
         }
         return $response;
