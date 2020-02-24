@@ -30,42 +30,6 @@ if(empty($_GET)){
         exit();
     }
 
-    if($_POST['action'] == 'update'){
-        
-        // Create new registry
-        require_once('../functions/db.php');
-
-        //Prepare statement to avoid SQL inyections.
-        $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
-        $company = filter_var($_POST['company'], FILTER_SANITIZE_STRING);
-        $phone = filter_var($_POST['phone'], FILTER_SANITIZE_STRING);
-        $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
-
-        try{
-
-            $statement = $conn->prepare("UPDATE contacts SET name = ?, company = ?, phone = ? WHERE id = ?");
-            $statement->bind_param("sssi", $name, $company, $phone, $id);
-            $statement->execute();
-            if($statement->affected_rows == 1){
-                $response = array(
-                    'response' => 'correct'
-                );
-            }else{
-                $response = array(
-                    'response' => 'error'
-                );
-            }
-            $statement->close();
-            $conn->close();
-        }catch(Exception $e){
-            $response = array(
-                'error' => $e->getMessage()
-            );
-        }
-        echo json_encode($response);
-        exit;
-    }
-
 }
 
 

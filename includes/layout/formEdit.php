@@ -5,8 +5,9 @@
         type="text" 
         placeholder="Tema de la transmisión" 
         id="theme"
-        value=""
+        value="<?php echo(isset($theme))? $theme : '';?>"
         >
+
     </div>
     <div class="input greyText">
         <label class = "greenText" for="company">Fecha:</label>
@@ -14,7 +15,7 @@
         type="date" 
         placeholder="Fecha de la transmisión" 
         id="date"
-        value=""
+        value="<?php echo(isset($date))? $date : '';?>"
         >
     </div>
     <div class="input greyText">
@@ -23,7 +24,7 @@
         type="time" 
         placeholder="Hora" 
         id="time"
-        value=""
+        value="<?php echo(isset($time))? $time : '';?>"
         >
     </div>
 </div>
@@ -33,10 +34,10 @@
         type="text" 
         placeholder="Url de la radio" 
         id="link"
-        value=""
+        value="<?php echo(isset($link))? $link : '';?>"
         >
 </div>
 <div class="input send btnContainerLogIn">
-    <input type="hidden" id="action" value="create"> 
-    <input class="btn btnPublish" type="submit" value="Publicar!">
+    <input type="hidden" id="action" value="update"> 
+    <input id = "update" class="btn btnPublish" type="submit" value="Actualizar!">
 </div>

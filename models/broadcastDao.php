@@ -10,6 +10,47 @@ class BroadcastDao{
         $this->db = new DB();   
     }
 
+    function search_broadcast($broadcast_id, $user_id){
+
+        $broadcast = $broadcast_id;
+        $user = $user_id;
+        
+        $conn= mysqli_connect($this->db->dbServername, $this->db->dbUsername, $this->db->dbPassword, $this->db->dbName);
+
+        if(!$conn){
+            die("Connection failed".mysqli_connect_error());
+        }
+
+        $sql = "SELECT b.broadcast_id, b.date, b.link, b.theme,
+        u.user_id, u.user_account
+        FROM broadcasts b, users u
+        WHERE b.user_id = u.user_id
+        AND b.user_id = ?
+        AND b.broadcast_id = ?;";
+
+        $stmt = mysqli_stmt_init($conn);    
+        if(!mysqli_stmt_prepare($stmt, $sql)){
+            mysqli_stmt_close($stmt);
+            mysqli_close($conn);
+            return 'sqlError';
+        }else {          
+        mysqli_stmt_bind_param($stmt,"ii",$user,$broadcast);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if($resultSet = mysqli_fetch_assoc($result)){           
+                mysqli_stmt_close($stmt);
+                mysqli_close($conn);
+                return $resultSet;
+            }else{
+                mysqli_stmt_close($stmt);
+                mysqli_close($conn);
+                return 'nofound';                      
+            }
+        }     
+
+    }
+
     function search_Allbroadcast(){
             
         $conn= mysqli_connect($this->db->dbServername, $this->db->dbUsername, $this->db->dbPassword, $this->db->dbName); 
@@ -26,20 +67,22 @@ class BroadcastDao{
 
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
-           return 'sqlError';
+            mysqli_stmt_close($stmt);
+            mysqli_close($conn);
+            return 'sqlError';
         }else {          
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $resultSet = $result->fetch_all();           
-            if(count($resultSet) < 0){
-                mysqli_stmt_close($stmt);
-                mysqli_close($conn);
-                return 'noBroadCast';
-            }else{
-                mysqli_stmt_close($stmt);
-                mysqli_close($conn);
-                return $resultSet;
-            }
+                if(count($resultSet) < 0){
+                    mysqli_stmt_close($stmt);
+                    mysqli_close($conn);
+                    return 'noBroadCast';
+                }else{
+                    mysqli_stmt_close($stmt);
+                    mysqli_close($conn);
+                    return $resultSet;
+                }
                 
         }     
     }

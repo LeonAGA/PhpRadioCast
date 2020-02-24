@@ -1,14 +1,34 @@
 const  createForm  = document.querySelector("#createForm"),
+       editForm = document.querySelector("#editForm"),
        broadcastList = document.querySelector('#broadcastList tbody'),
        inputSeeker = document.querySelector('#search'),
        indexBtn = document.querySelector('#indexBtn'),
-       createBtn = document.querySelector('#createBtn');
+       createBtn = document.querySelector('#createBtn'),
        mainContainer = document.querySelector('#mainContainer');
 
 (function eventListeners(){
     //Listener to submit or update.
     if(createForm !== null){
         createForm.addEventListener('submit', readForm);
+    }
+
+    if(editForm !== null){
+        
+        const themeOriginal = document.querySelector('#theme').value,
+        dateOriginal = document.querySelector('#date').value,
+        timeOriginal = document.querySelector('#time').value,
+        linkOriginal = document.querySelector('#link').value,
+        userOriginal = document.querySelector('#user').value,
+        broadcastidOriginal = document.querySelector('#broadcastid').value;
+
+        themeInput = document.querySelector('#theme');
+        dateInput = document.querySelector('#date');
+        timeInput = document.querySelector('#time');
+        linkInput = document.querySelector('#link');
+        userInput = document.querySelector('#user');
+        broadcastidInput = document.querySelector('#broadcastid');
+
+        editForm.addEventListener('submit', readForm);
     }
     
     //Listener to delete, search for broadcasts and call the broadcastNumber function.
@@ -49,11 +69,11 @@ function readForm(e){
         if(action === "create"){
             //Create new element.
             insertDB(parameter);
-        }else{
+        }else if(action === "update"){
             //Edit broadcast.
             //Read id.
-            const registryId = document.querySelector('#id').value;
-            parameter.append('id', registryId);
+            const broadcastid = document.querySelector('#broadcastid').value;
+            parameter.append('broadcastid', broadcastid);
             //Update an element.
             updateDB(parameter);
         }
@@ -76,7 +96,6 @@ function insertDB(parameter){
             let data;
             let response = xhr.responseText.replace(/<\/?[^>]+(>|$)/g, "");
             data = JSON.parse(response)
-            console.log(response);
             if( data.correct){
                 showNotification('Se a creado tu evento de transmisión', 'successful', data.data.theme);
                 
@@ -113,7 +132,6 @@ function deleteBroadcast(e){
                  let data;
                  let response = xhr.responseText.replace(/<\/?[^>]+(>|$)/g, "");
                  data = JSON.parse(response);
-                 console.log(data);
                    if(data.correct){
 
                        //Delete the registry of DOM
@@ -124,8 +142,11 @@ function deleteBroadcast(e){
                        broadNumber();
 
                    }else{
-                       showNotification('There was an error', 'error')
+                    showNotification('Algo salió mal :/... notificar al asministrador', 'error');
                    }
+                }else{
+
+                 showNotification('Hay un error en la comunicación, notificar al asministrador', 'error'); 
                 }
             }
             //Send.
@@ -135,33 +156,36 @@ function deleteBroadcast(e){
     }
 }
 
-function updateDB(contactInfo){
+function updateDB(parameter){
 
     //Ajax call:
     //Create the object.
     const xhr = new XMLHttpRequest();
     //Open.
-    xhr.open('POST','includes/mode/model-contacts.php',true);
+    xhr.open('POST','controllers/edit.inc.php',true);
     //Read.
     xhr.onload = function(){
         if(this.status === 200){
-            const response = JSON.parse(xhr.responseText);
-             if(response.response === 'correct'){
-                 //Show notification
-                 showNotification('The contact\'s information has been updated', 'successful');
-             }else{
-                showNotification('The contact\'s information couldn\'t been updated ', 'error');
-             }
+            //Reading response.
+            let data;
+            let response = xhr.responseText.replace(/<\/?[^>]+(>|$)/g, "");
+            data = JSON.parse(response)
+            if( data.correct){
+                showNotification('Se a editado tu evento de transmisión', 'successful', data.data.theme);
+                
+            }else{
+                showNotification('Algo salió mal :/... notificar al asministrador', 'error');
+            }   
              //After trhee seconds send the user to the index
             setTimeout(() => {
                 window.location.href = 'index.php';
             }, 4000);
+        }else{
+            showNotification('Hay un error en la comunicación, notificar al asministrador', 'error'); 
         }
     }
-
     //Send.
-    xhr.send(contactInfo);
-
+    xhr.send(parameter);
 }
 
     
