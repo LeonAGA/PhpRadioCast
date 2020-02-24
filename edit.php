@@ -22,7 +22,7 @@
 
 <div class="bgWhite container shadow">
     <form id ="editForm" action ="">
-        <legend class="greenText">Vamos a editar tu evento <span></span></legend>
+        <legend class="greenText">Vamos a editar tu evento <span>*Debes modificar algo para poder actualizar*</span></legend>
         
         <?php include 'includes/layout/formEdit.php'; ?>
         <input type="hidden" id="broadcastid" value="<?php echo $broadcastid;?>">
