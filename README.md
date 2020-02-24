@@ -38,7 +38,7 @@ A broadcast publisher system.
 - Classes.
 - PHP Validations.
 - Use of MVC.
-- Use of Ajax.
+- Use of AJAX.
 
 ## Requeriments
 
