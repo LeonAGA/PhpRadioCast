@@ -333,11 +333,11 @@ footer{
 }
 
 .passlogineye{
- position: absolute;
- margin-top: 0.5rem;
- border-style: solid;
- padding: 0.9rem 0 0.9rem 0; 
- border-color: var(--first);
+    position: absolute;
+    margin-top: 0.5rem;
+    border-style: solid;
+    padding: 0.9rem 0 0.9rem 0; 
+    border-color: var(--first);
 
 }
 

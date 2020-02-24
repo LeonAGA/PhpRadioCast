@@ -315,8 +315,7 @@ legend span{
 }
 
 .broadcastList tbody td{
-padding: .5rem;
-
+    padding: .5rem;
 }
 
 .broadcastList tbody td:nth-child(4){
@@ -386,7 +385,7 @@ padding: .5rem;
 }
 
 .visible{
-opacity: 1;
+    opacity: 1;
 }
 
 .successful{

@@ -38,30 +38,30 @@ function search_broadcast($broadcast_id){
 }
 
 if(empty($_GET)){
-if($_POST['action'] == 'update'){
-        
-     //Prepare statement to avoid SQL inyections.
-     $theme = filter_var($_POST['theme'], FILTER_SANITIZE_STRING);
-     $date = filter_var($_POST['date'], FILTER_SANITIZE_STRING);
-     $hour = filter_var($_POST['time'], FILTER_SANITIZE_STRING);
-     $link = filter_var($_POST['link'], FILTER_SANITIZE_URL);
-     $userid = $_POST['user'];
-     $broadcastid = $_POST['broadcastid'];
-     $date = $date." ".$hour.":00";
+    if($_POST['action'] == 'update'){
+            
+        //Prepare statement to avoid SQL inyections.
+        $theme = filter_var($_POST['theme'], FILTER_SANITIZE_STRING);
+        $date = filter_var($_POST['date'], FILTER_SANITIZE_STRING);
+        $hour = filter_var($_POST['time'], FILTER_SANITIZE_STRING);
+        $link = filter_var($_POST['link'], FILTER_SANITIZE_URL);
+        $userid = $_POST['user'];
+        $broadcastid = $_POST['broadcastid'];
+        $date = $date." ".$hour.":00";
 
-     //Instances
-     $Dao = new BroadcastDao();
+        //Instances
+        $Dao = new BroadcastDao();
 
-    try{
+        try{
             $response = $Dao->update_broadcast($theme, $date, $link, $userid, $broadcastid);
 
-    }catch(Exception $ex){
-        $response = array(
-            'error'=> $ex->getMessage()
-        );
+        }catch(Exception $ex){
+            $response = array(
+                'error'=> $ex->getMessage()
+            );
+        }
+        echo json_encode($response);  
+        exit();
+        
     }
-    echo json_encode($response);  
-    exit();
-    
-}
 }

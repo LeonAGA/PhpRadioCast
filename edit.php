@@ -9,7 +9,7 @@
 
     $broadcast = search_broadcast($broadcast_id);
     if(!is_array($broadcast)){
-    die('Hubo un error, no se encontró la transmisión');
+        die('Hubo un error, no se encontró la transmisión');
     }
     $theme = $broadcast[0];
     $date = $broadcast[1];
