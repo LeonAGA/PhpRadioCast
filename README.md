@@ -4,7 +4,7 @@
    </br>
 <h6 align = "center">SigmaΣCode</h6>
 
-<h1 align="center">PHPLogger</h1>
+<h1 align="center">RadioCast</h1>
 
 <p align="center">
 A broadcast publisher system.
