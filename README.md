@@ -18,19 +18,19 @@ A broadcast publisher system.
 </p>
 
 <p align="center">
-    <img src="/img/captures/radiocast2.PNG">
+    <img src="/img/captures/radiocast2.png">
 </p>
 
 <p align="center">
-    <img src="/img/captures/radiocast3.PNG">
+    <img src="/img/captures/radiocast3.png">
 </p>
 
 <p align="center">
-    <img src="/img/captures/radiocast4.PNG">
+    <img src="/img/captures/radiocast4.png">
 </p>
 
 <p align="center">
-    <img src="/img/captures/radiocast5.PNG">
+    <img src="/img/captures/radiocast5.png">
 </p>
 
 ## Features
