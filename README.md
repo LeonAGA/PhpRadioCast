@@ -7,29 +7,44 @@
 <h1 align="center">PHPLogger</h1>
 
 <p align="center">
-A simple logger form in PHP
+A broadcast publisher system.
 </p>
 </br>
 
 ## Captures
 
 <p align="center">
-    <img src="/img/captures/logger.png">
+    <img src="/img/captures/radiocast1.png">
 </p>
 
 <p align="center">
-    <img src="/img/captures/logger2.PNG">
+    <img src="/img/captures/radiocast2.PNG">
+</p>
+
+<p align="center">
+    <img src="/img/captures/radiocast3.PNG">
+</p>
+
+<p align="center">
+    <img src="/img/captures/radiocast4.PNG">
+</p>
+
+<p align="center">
+    <img src="/img/captures/radiocast5.PNG">
 </p>
 
 ## Features
 
 - Classes.
 - PHP Validations.
-- Use of files.
+- Use of MVC.
+- Use of Ajax.
 
 ## Requeriments
 
-- Just maintain the folder structure.
+- Maintain the folder structure.
+
+- MySql Data base is required, a DDL script is inside the proyect, just run it.
 
 ## See it online
 
