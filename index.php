@@ -22,7 +22,7 @@
                  <p class="noBroadcastMessage">No hay próximas transmisiones : / ... </p>
 
                          <?php }else{ ?>
-            <table id="broadcastList" class="broadcastList">
+            <table id="broadcastList" class="broadcastList bgBlack">
                 <thead>
                     <tr>
                         <th>Usuario</th>
@@ -32,7 +32,7 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="bgBlack">
+                <tbody>
                     <?php foreach($broadcasts as $broadcast){ ?>
                             <tr> 
                                 <td><?php echo $broadcast->get_user_account();?></td>
